@@ -48,19 +48,21 @@ namespace IT_Eszköznyilvántartó_Rendszer
         }
         public Eszkoz (string cikkszam, string nev, int beszerzesiAr)
         {
-            
-        }
 
-        public Eszkoz (string cikkszam, string nev, int beszerzesiAr, int raktarKeszlet)
-        {
             Cikkszam = cikkszam;
             Nev = nev;
             BeszerzesiAr = beszerzesiAr;
+            raktarKeszlet = 0;
+        }
+
+        public Eszkoz (string cikkszam, string nev, int beszerzesiAr, int raktarKeszlet) : this(cikkszam, nev, beszerzesiAr)
+        {
             RaktarKeszlet = raktarKeszlet;
+                osszesLetezoEszkoz++;
         }
         public override string ToString()
         {
-            return $" [Cikkszam] Nev | Beszerzési ár: [BeszerzesiAr] Ft | Készlet: [RaktarKeszlet] db ";
+            return $" {Cikkszam} {Nev} | Beszerzési ár: {BeszerzesiAr} Ft | Készlet: {RaktarKeszlet} db ";
         }
         public bool Eladas(int db)
         {
@@ -69,9 +71,11 @@ namespace IT_Eszköznyilvántartó_Rendszer
                 RaktarKeszlet -= db;
                 return true;
             }
-
-            Console.WriteLine($"nincs elengedő készlet a {Nev} termékből");
-            return false;
+            else
+            {
+                Console.WriteLine($"nincs elengedő készlet a {Nev} termékből");
+                return false;
+            }
         }
     }
 }
